@@ -1,0 +1,21 @@
+type Query {
+  jobs: [Job!]
+}
+
+type Company {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Job {
+  id: ID!
+  #__something__ means it shows bold and ``it users monospace for the spellings --> and this is normal comment only see by developer
+  """
+  The __date__ when the job was published, in ISO-8601 format. E.g. `2022-12-31`.
+  """
+  date: String!
+  title: String!
+  description: String
+  company: Company!
+}
