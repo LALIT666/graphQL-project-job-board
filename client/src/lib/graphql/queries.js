@@ -37,6 +37,21 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const jobByIdQuery = gql`
+  query JobById($id: ID!) {
+    job(id: $id) {
+      id
+      date
+      title
+      company {
+        id
+        name
+      }
+      description
+    }
+  }
+`;
+
 // export async function createJob({ title, description }) {
 //   const mutation = gql`
 //     mutation CreateJob($input: CreateJobInput!) {
@@ -96,20 +111,9 @@ export async function getJob(id) {
 }
 
 export async function getJobs() {
-  const query = gql`
-    query Jobs {
-      jobs {
-        id
-        date
-        title
-        company {
-          id
-          name
-        }
-      }
-    }
-  `;
-
-  const result = await apolloClient.query({ query });
+  const result = await apolloClient.query({
+    query: jobByIdQuery,
+    fetchPolicy: "network-only",
+  });
   return result.data.jobs;
 }
