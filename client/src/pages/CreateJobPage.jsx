@@ -8,7 +8,7 @@ function CreateJobPage() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [mutate] = useMutation(createJobMutation);
+  const [mutate, result] = useMutation(createJobMutation);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -60,7 +60,11 @@ function CreateJobPage() {
           </div>
           <div className="field">
             <div className="control">
-              <button className="button is-link" onClick={handleSubmit}>
+              <button
+                className="button is-link"
+                disabled={result.loading}
+                onClick={handleSubmit}
+              >
                 Submit
               </button>
             </div>
